@@ -56,7 +56,17 @@
       })
       .then(response => response.json())
       .then(result => {
-        resultDiv.textContent = `Result: ${JSON.stringify(result)}`;
+        let resultText;
+    
+        if (result.average !== undefined && result.median !== undefined) {
+          resultText = `Average = ${result.average}, Median = ${result.median}`;
+        } else if (result.result !== undefined) {
+          resultText = result.result;
+        } else {
+          resultText = 'Unexpected result format';
+        }
+
+        resultDiv.textContent = `Result: ${resultText}`;
       })
       .catch(error => {
         resultDiv.textContent = `Error: ${error}`;
