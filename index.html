@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Node.js Functions</title>
+</head>
+<body>
+  <h1>Node.js Functions</h1>
+
+  <h2>Find Summation</h2>
+  <form action="/findSummation" method="post" id="findSummationForm">
+    <label for="number">Enter a positive integer:</label>
+    <input type="number" id="number" name="number" min="1" required>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="summationResult"></div>
+
+  <h2>Uppercase First and Last</h2>
+  <form action="/uppercaseFirstandLast" method="post" id="uppercaseForm">
+    <label for="str">Enter a string:</label>
+    <input type="text" id="str" name="str" required>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="uppercaseResult"></div>
+
+  <h2>Find Average and Median</h2>
+  <form action="/findAverageAndMedian" method="post" id="findAverageForm">
+    <label for="numbers">Enter numbers (comma-separated):</label>
+    <input type="text" id="numbers" name="numbers" placeholder="1,2,3,4,5" required>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="averageMedianResult"></div>
+
+  <h2>Find 4-Digit Number</h2>
+  <form action="/find4Digits" method="post" id="find4DigitsForm">
+    <label for="numberString">Enter a string of numbers separated by spaces:</label>
+    <input type="text" id="numberString" name="numberString" required>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="fourDigitResult"></div>
+
+  <script>
+    function handleFormSubmit(event, formID, resultID) {
+      event.preventDefault();
+      const form = document.getElementById(formID);
+      const resultDiv = document.getElementById(resultID);
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(result => {
+        resultDiv.textContent = `Result: ${JSON.stringify(result)}`;
+      })
+      .catch(error => {
+        resultDiv.textContent = `Error: ${error}`;
+      });
+    }
+
+    document.getElementById('findSummationForm').addEventListener('submit', (event) => {
+      handleFormSubmit(event, 'findSummationForm', 'summationResult');
+    });
+
+    document.getElementById('uppercaseForm').addEventListener('submit', (event) => {
+      handleFormSubmit(event, 'uppercaseForm', 'uppercaseResult');
+    });
+
+    document.getElementById('findAverageForm').addEventListener('submit', (event) => {
+      handleFormSubmit(event, 'findAverageForm', 'averageMedianResult');
+    });
+
+    document.getElementById('find4DigitsForm').addEventListener('submit', (event) => {
+      handleFormSubmit(event, 'find4DigitsForm', 'fourDigitResult');
+    });
+  </script>
+</body>
+</html>
