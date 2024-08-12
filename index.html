@@ -60,7 +60,7 @@
         if (typeof result === 'object' && result !== null) {
           if (result.result) {
             resultText = result.result;
-          } else if (result.average !== undefined && result.media !== undefined) {
+          } else if (result.average !== undefined && result.median !== undefined) {
             resultText = `Average: ${result.average}, Median: ${result.median}`;
           } else {
             resultText = JSON.stringify(result);
