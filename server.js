@@ -71,7 +71,7 @@ app.post('/uppercaseFirstandLast', (req, res) => {
 app.post('/findAverageandMedian', (req, res) => {
   const numbers = req.body.numbers.split(',').map(Number);
   const result = findAverageandMedian(numbers);
-  res.json(result);
+  res.json({result});
 });
 
 app.post('/find4Digits', (req, res) => {
