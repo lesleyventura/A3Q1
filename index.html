@@ -56,7 +56,19 @@
       })
       .then(response => response.json())
       .then(result => {
-        resultDiv.textContent = `Result: ${JSON.stringify(result)}`;
+        let resultText;
+        if (typeof result === 'object' && result !== null) {
+          if (result.result) {
+            resultText = result.result;
+          } else if (result.average !== undefined && result.media !== undefined) {
+            resultText = `Average: ${result.average}, Median: ${result.median}`;
+          } else {
+            resultText = JSON.stringify(result);
+          }
+        } else {
+          resultText = result;
+        }
+        resultDiv.textContent = `Result: ${resultText}`;
       })
       .catch(error => {
         resultDiv.textContent = `Error: ${error}`;
