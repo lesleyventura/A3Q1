@@ -56,19 +56,7 @@
       })
       .then(response => response.json())
       .then(result => {
-        let resultText;
-        if (typeof result === 'object' && result !== null) {
-          if (result.result) {
-            resultText = result.result;
-          } else if (result.average !== undefined && result.median !== undefined) {
-            resultText = `Average: ${result.average}, Median: ${result.median}`;
-          } else {
-            resultText = JSON.stringify(result);
-          }
-        } else {
-          resultText = result;
-        }
-        resultDiv.textContent = `Result: ${resultText}`;
+        resultDiv.textContent = `Result: ${JSON.stringify(result)}`;
       })
       .catch(error => {
         resultDiv.textContent = `Error: ${error}`;
